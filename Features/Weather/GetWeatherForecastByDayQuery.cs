@@ -2,7 +2,10 @@ using Mediator;
 
 namespace JustAnApi.Features.Weather;
 
-public sealed record GetWeatherForecastByDayQuery(DayOfWeek DayOfWeek) : IRequest<WeatherForecast>;
+public sealed record GetWeatherForecastByDayQuery(DayOfWeek DayOfWeek) : IRequest<WeatherForecast>
+{
+    public static GetWeatherForecastByDayQuery Create(DayOfWeek dayOfWeek) => new(dayOfWeek);
+}
 
 public sealed class GetWeatherForecastByDayHandler : IRequestHandler<GetWeatherForecastByDayQuery, WeatherForecast>
 {

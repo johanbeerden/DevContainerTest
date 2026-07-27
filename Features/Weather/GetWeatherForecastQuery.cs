@@ -2,7 +2,10 @@ using Mediator;
 
 namespace JustAnApi.Features.Weather;
 
-public sealed record GetWeatherForecastQuery : IRequest<WeatherForecast[]>;
+public sealed record GetWeatherForecastQuery : IRequest<WeatherForecast[]>
+{
+    public static GetWeatherForecastQuery Create() => new();
+}
 
 public sealed class GetWeatherForecastHandler : IRequestHandler<GetWeatherForecastQuery, WeatherForecast[]>
 {

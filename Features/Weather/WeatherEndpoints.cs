@@ -7,7 +7,7 @@ public static class WeatherEndpoints
 {
     public static IEndpointRouteBuilder MapWeatherEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/weatherforecast", async (IMediator mediator) => await mediator.Send(new GetWeatherForecastQuery()))
+        app.MapGet("/weatherforecast", async (IMediator mediator) => await mediator.Send(GetWeatherForecastQuery.Create()))
             .WithName("GetWeatherForecast")
             .WithTags("Weather")
             .WithSummary("Get a 5-day weather forecast")
@@ -47,7 +47,7 @@ public static class WeatherEndpoints
                     });
                 }
 
-                var forecast = await mediator.Send(new GetWeatherForecastByDayQuery(parsedDayOfWeek));
+                var forecast = await mediator.Send(GetWeatherForecastByDayQuery.Create(parsedDayOfWeek));
                 return Results.Ok(forecast);
             })
             .WithName("GetWeatherForecastByDay")
