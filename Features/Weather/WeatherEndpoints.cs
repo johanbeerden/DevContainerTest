@@ -37,6 +37,43 @@ public static class WeatherEndpoints
                 return Task.CompletedTask;
             });
 
+        app.MapGet("/weatherforecast/{dayOfWeek}", async (string dayOfWeek, IMediator mediator) =>
+            {
+                if (!Enum.TryParse<DayOfWeek>(dayOfWeek, ignoreCase: true, out var parsedDayOfWeek))
+                {
+                    return Results.ValidationProblem(new Dictionary<string, string[]>
+                    {
+                        [nameof(dayOfWeek)] = [$"'{dayOfWeek}' is not a valid day of the week."]
+                    });
+                }
+
+                var forecast = await mediator.Send(new GetWeatherForecastByDayQuery(parsedDayOfWeek));
+                return Results.Ok(forecast);
+            })
+            .WithName("GetWeatherForecastByDay")
+            .WithTags("Weather")
+            .WithSummary("Get the weather forecast for a given day of the week")
+            .WithDescription("""
+                Generates a random weather forecast for the next date matching the
+                given day of the week (today counts if it's already that day). The
+                day is passed by name, e.g. "Monday", and is case-insensitive.
+                """)
+            .Produces<WeatherForecast>(StatusCodes.Status200OK, "application/json")
+            .ProducesValidationProblem()
+            .AddOpenApiOperationTransformer((operation, _, _) =>
+            {
+                if (operation!.Responses is { } responses &&
+                    responses.TryGetValue("200", out var response) &&
+                    response.Content is { } content &&
+                    content.TryGetValue("application/json", out var mediaType))
+                {
+                    mediaType.Example = JsonSerializer.SerializeToNode(
+                        new WeatherForecast(DateOnly.FromDateTime(DateTime.Now), 22, "Mild"));
+                }
+
+                return Task.CompletedTask;
+            });
+
         return app;
     }
 }
