@@ -1,0 +1,7 @@
+﻿services:
+  justanapi:
+    image: justanapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+
