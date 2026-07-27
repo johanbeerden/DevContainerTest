@@ -31,3 +31,5 @@ app.UseHttpsRedirection();
 app.MapWeatherEndpoints();
 
 app.Run();
+
+public partial class Program;
