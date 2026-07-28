@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(**/appsettings*.json)",
+      "Read(**/appsettings.*.Local.json)",
+      "Read(**/secrets.json)",
+      "Read(**/*.user)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/*.pfx)",
+      "Read(**/*.p12)",
+      "Read(**/*.key)"
+    ]
+  }
+}

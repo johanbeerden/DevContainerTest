@@ -1,0 +1,46 @@
+# Build & compile output
+bin/
+obj/
+out/
+publish/
+[Dd]ebug/
+[Rr]elease/
+*.dll
+*.pdb
+
+# Restored packages & tool caches
+packages/
+.nuget/
+*.nupkg
+.dotnet/
+.packages/
+
+# Secrets & environment config
+appsettings.*.Local.json
+appsettings.Development.json
+*.user
+secrets.json
+.env
+.env.*
+*.pfx
+*.p12
+*.key
+
+# IDE / editor cruft
+.vs/
+.idea/
+*.suo
+*.DotSettings.user
+
+# Test output & coverage
+TestResults/
+coverage/
+*.trx
+*.coverage
+
+# Containers & local infra state
+.docker/
+*.log
+
+# Vendored / generated bulk
+docs/_site/
